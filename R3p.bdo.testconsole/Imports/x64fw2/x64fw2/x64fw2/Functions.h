@@ -8,7 +8,7 @@ typedef void(__fastcall* SetLocalPlayerSpeeds)(__int64 localActor, unsigned __in
 SetLocalPlayerSpeeds f_SetSpeeds = NULL;
 
 typedef __int64(__fastcall* SetVehicleStats)(__int64 VTableServantStats, __int64 VTableActorRoot, char* PacketData, WORD PacketDataLength);
-SetVehicleStats f_SetVehicleStats = (SetVehicleStats)0x140911A00;
+SetVehicleStats f_SetVehicleStats = (SetVehicleStats)0x14091A6E0;
 
 typedef void(__fastcall* PickItems)(int a1);
 PickItems f_PickItems = (PickItems)_looting_PickItems;
@@ -30,25 +30,26 @@ ActorToActor f_ActorToActor = (ActorToActor)_moveItemActorToActor;
 
 void set_vehiclespeeds(int actorGameObjectId, int accel = 0, int speed = 0, int turn = 0, int brake = 0)
 {	
-	__int64 VTableServantStats = 0x1418CCC40;
-	__int64 VTableActorRoot = 0x1418DDC30;
+	__int64 VTableServantStats = 0x00000001420B21F0;
+	__int64 VTableActorRoot = 0x1418E59A0;
 
 	ByteBuffer* buffer = new ByteBuffer(36);
-	buffer->putShort(0);		//opCode
-	buffer->putInt(actorGameObjectId);
+	buffer->putShort(3413);		//opCode
+	buffer->putShort(0);
+	buffer->put((BYTE)0);
+	buffer->put((BYTE)1);		//MatingCount
+	buffer->putInt(0);
+	buffer->putInt(0);			//DeathCount
+	buffer->put((BYTE)0);		//IsClearedDeathCount
 	buffer->putInt(accel);
 	buffer->putInt(speed);
 	buffer->putInt(turn);
 	buffer->putInt(brake);
-	buffer->put((BYTE)10);		//MatingCount
-	buffer->putInt(0);			//DeathCount
 	buffer->put((BYTE)0);		//IsImprint
-	buffer->put((BYTE)0);		//IsClearedMatingCount
-	buffer->put((BYTE)0);		//IsClearedDeathCount
+	buffer->putInt(actorGameObjectId);
 	buffer->putInt(0);
-	buffer->putShort(0);		//FormIndex
 
-	f_SetVehicleStats((__int64)&VTableServantStats, (__int64)&VTableActorRoot, (char*)&buffer->buf[0], buffer->size());
+	f_SetVehicleStats(VTableServantStats, (__int64)&VTableActorRoot, (char*)&buffer->buf[0], buffer->size());
 
 	delete buffer;
 }

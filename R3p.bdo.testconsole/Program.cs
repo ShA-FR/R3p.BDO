@@ -362,6 +362,15 @@ namespace R3p.bdo.testconsole
 
         private static void GetHotKeys()
         {
+            if(GetKeysPressed(new []{ VirtualKeyCode.KeyCode_SHIFT, VirtualKeyCode.KeyCode_MENU, VirtualKeyCode.KeyCode_T}))
+            {
+                //var vehicle = Collection.Mounts.Rides.CurrentVehicle.ActorData;
+
+                //Pipe.Call.SetVehicleSpeeds(vehicle.ActorKey, 500000, 400000, 300000, 200000);
+                
+                //Thread.Sleep(2000);
+            }
+
             if (GetKeysPressed(Settings.HotKeys.Speedhack))
             {
                 string notifyText = "Proc_ShowMessage_Ack('<PAColor0xFFB69A80>Speedhack:<PAOldColor><PAColor0xFFCC0000>Enabled<PAOldColor>')";
