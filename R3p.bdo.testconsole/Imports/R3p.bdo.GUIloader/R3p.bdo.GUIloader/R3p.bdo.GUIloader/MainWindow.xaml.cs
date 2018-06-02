@@ -422,7 +422,10 @@ namespace R3p.bdo.GUIloader
 
             try
             {
-                supportedVersion = Convert.ToInt32(FTP_GetFileContent("version.txt"));
+                if (Settings.Default.autoupdate)
+                {
+                    supportedVersion = Convert.ToInt32(FTP_GetFileContent("version.txt"));
+                }
             }
             catch (Exception err)
             {
@@ -532,5 +535,64 @@ namespace R3p.bdo.GUIloader
             Settings.Default.autoupdate = cbAutoUpdate.IsChecked.Value;
             Settings.Default.Save();
         }
+
+
+        private void BtnSaveSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+            // LblAutoFish
+            bool autoFishEnabled = ChkAutoFishEnabled.IsChecked ?? false;
+            bool autoFishFishDataLog = ChkAutoFishFishDataLog.IsChecked ?? false;
+            bool autoFishHighLatencyMode = ChkAutoFishHighLatencyMode.IsChecked ?? false;
+            bool autoFishPredictMode = ChkAutoFishPredictMode.IsChecked ?? false;
+            // white=1,green=2,blue=3,yellow=4
+            int autoFishCatchGrades = CbAutoFishCatchGrades.SelectedIndex;
+
+            string autoFishIdFilterWhite = TbAutoFishIdFilterWhite.Text;
+            List<int> autoFishIdFilterWhiteList = ParseIdList(autoFishIdFilterWhite);
+
+            string autoFishIdFilterGreen = TbAutoFishIdFilterGreen.Text;
+            List<int> autoFishIdFilterGreenList = ParseIdList(autoFishIdFilterGreen);
+
+            string autoFishIdFilterBlue = TbAutoFishIdFilterBlue.Text;
+            List<int> autoFishIdFilterBlueList = ParseIdList(autoFishIdFilterBlue);
+
+            string autoFishIdFilterYellow = TbAutoFishIdFilterYellow.Text;
+            List<int> autoFishIdFilterYellowList = ParseIdList(autoFishIdFilterYellow);
+
+            // LblAutoRestore
+            bool autoRestoreEnabled = ChkAutoRestoreEnabled.IsChecked ?? false;
+            // LblUIHack
+            bool uIHackEnabled = ChkUIHackEnabled.IsChecked ?? false;
+            // LblAutoItemRegister
+            bool autoItemRegisterEnabled = ChkAutoItemRegisterEnabled.IsChecked ?? false;
+            // LblAutoItemBuy
+            bool autoItemBuyEnabled = ChkAutoItemBuyEnabled.IsChecked ?? false;
+
+            // LblAutoPotion
+            bool autoPotionEnabled = ChkAutoPotionEnabled.IsChecked ?? false;
+            int autoPotionHp = Convert.ToInt32(SldAutoPotionHp.Value);
+            int autoPotionMp = Convert.ToInt32(SldAutoPotionMp.Value);
+
+            // TODO: more validation, save form to file
+            /// read settings.xml
+            /// update values when validated correctly
+            /// save settings.xml
+
+        }
+
+        #region utils for forms
+        private List<int> ParseIdList(string idList)
+        {
+            List<int> ids = new List<int>();
+            foreach (string idString in idList.Split(new char[] { ',' }).ToList())
+            {
+                int.TryParse(idString, out int id);
+                if (id == 0) { continue; }
+                ids.Add(id);
+            }
+            return ids;
+        }
+        #endregion utils for forms
     }
 }
