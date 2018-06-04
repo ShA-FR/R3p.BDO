@@ -6,13 +6,21 @@
 #include "Threading/ThreadContext.h"
 #include "Threading/Thread.h"
 #include "Hooks.h"
+#include "Utilities/JSON.h"
 
 std::string eventName;
 HANDLE hMainThread;
 
+void Init()
+{
+	Document settings = LoadSettings("");
+	auto a = settings["Speedhack"]["Player"]["Mvmt"].GetInt();
+}
 
 void MainThread(HMODULE hModule)
 {
+	//Init();
+
 	auto suspendedThreads = Infinity::Utilities::Threading::ThreadContext::GetInstance().SuspendAllThreads();
 	 
 	Load();
