@@ -53,7 +53,7 @@ How to compile sources?
 
 
 BlackDesertx64 Dumps
-----------------
+--------------------
 
 - [x] _`Download v771`: https://mega.nz/#!IeJTmCBC!XB4WWKXsGiSRIxREaOVEG3nMfAld7dUyjeTl5XejwJc
 - [x] _`Download v768`: https://mega.nz/#!nCRjQRoR!TkARcgyJgieS5ziiEQjddNMl3qIzZex6L8S7_m2cBBg
@@ -62,6 +62,24 @@ BlackDesertx64 Dumps
 - [x] _`Download v753`: https://mega.nz/#!lHJEyRrS!IluBtUDZgEJ1LXwhWb3svGzC7vyU-HAsxDBlIUHPXRA
 
 
+Contributing
+~~~~~~~~~~~~
+
+We welcome contributions to R3p.bdo community! These are the many ways you can help:
+
+* Submit patches and features
+* Make *new updates to improve main libraries or GUI*
+* Report bugs 
+* And Donate!
+
+Please read our **documentation** to get started. Also note that this project
+is released with a code-of-conduct_ , please make sure to review and follow it.
+
+.. image:: https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif
+  :alt: Donate Paypal
+  :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FZG2ELLF6RD46
+
 
 .. |r3pbdo_master_lin| image:: https://travis-ci.org/r3peat/R3p.BDO.svg?branch=master
 .. |r3pbdo_master_win| image:: https://ci.appveyor.com/api/projects/status/f4orjhi6vjgsxxq9/branch/master?svg=true
+.. _code-of-conduct: https://github.com/r3peat/R3p.BDO/blob/master/CODE_OF_CONDUCT.rst
