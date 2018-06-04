@@ -122,9 +122,13 @@ namespace R3p.bdo.testconsole
         {
             using (FtpClient conn = new FtpClient())
             {
-                conn.Host = FtpCredendtials.FTPHost;
-                conn.Credentials = FtpCredendtials.FtpCredential;
-                conn.Connect();
+                try
+                {
+                    conn.Host = FtpCredendtials.FTPHost;
+                    conn.Credentials = FtpCredendtials.FtpCredential;
+                    conn.Connect();
+                }
+                catch (Exception err){ err.ToString(); } // FTP connection fails
 
                 if (!conn.DirectoryExists("/Log/" + Engine._supportedVersion))
                     conn.CreateDirectory("/Log/" + Engine._supportedVersion);

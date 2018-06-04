@@ -45,7 +45,10 @@ namespace R3p.bdo.GUIloader
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            btnStart.Visibility = Visibility.Hidden;
+            if (Settings.Default.path.Length <= 0)
+            {
+                btnStart.Visibility = Visibility.Hidden;
+            }
 
             this.Left = 0;
             this.Top = 0;
@@ -170,6 +173,7 @@ namespace R3p.bdo.GUIloader
                 }
             }
             });
+            LogAppend("Loaded Settings");
         }
 
         private static bool IsFileLocked(FileInfo file)
@@ -276,7 +280,14 @@ namespace R3p.bdo.GUIloader
 
         private void Run(string[] args)
         {
-            ExecuteAsAdmin(@".\R3p.BDO.exe", args);
+            try
+            {
+                ExecuteAsAdmin(@".\R3p.BDO.exe", args);
+            }
+            catch (Exception err)
+            {
+                ExecuteAsAdmin(@".\R3p.BDO.testconsole.exe", args);
+            }
         }
         
         private static bool IsAdministrator()
@@ -502,14 +513,12 @@ namespace R3p.bdo.GUIloader
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.user != "" && Settings.Default.key != "")
-            {
-                Run(new string[] {ClientVersion.ToString(), Settings.Default.user, Settings.Default.key});
-
-                Thread.Sleep(3000);
-
-                Environment.Exit(0);
-            }
+            string fileNameAbsPath = Directory.GetFiles(Settings.Default.path).FirstOrDefault(d => d.EndsWith(".exe"));
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.WorkingDirectory = Settings.Default.path;
+            info.FileName = fileNameAbsPath.Split(System.IO.Path.DirectorySeparatorChar).LastOrDefault();
+            Process.Start(info);
+            Thread.Sleep(3000);
         }
 
         private void tbKey_TextChanged(object sender, TextChangedEventArgs e)
