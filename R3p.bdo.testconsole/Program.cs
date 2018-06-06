@@ -183,15 +183,15 @@ namespace R3p.bdo.testconsole
                 hackUi.Run();
                 speedHack.Run();
                 autoPot.Run();
-                autoItemRegister.Run();
+                //autoItemRegister.Run();
 
                 if (_autoItemBuyTrigger && !autoItemBuy.ItemMarket.isVisible())
                     _autoItemBuyTrigger = false;
 
-                autoItemBuy.Run(_autoItemBuyTrigger);
-                autoItemBuy.PostStats();
+                //autoItemBuy.Run(_autoItemBuyTrigger);
+                //autoItemBuy.PostStats();
 
-                autoProcessing.Run();
+                //autoProcessing.Run();
                 fishing.Run(Collector.requestReload);
                 fishing.PostStats();
 
@@ -523,13 +523,13 @@ namespace R3p.bdo.testconsole
             autoPot.HPPercent = Settings.AutoPotion.HPPercent;
             autoPot.MPPercent = Settings.AutoPotion.MPPercent;
 
-            autoItemRegister = new AutoItemRegister();
-            autoItemRegister.Enabled = Settings.AutoItemRegister.Enabled;
-            autoItemRegister.Filters = Settings.AutoItemRegister.Items;
+            //autoItemRegister = new AutoItemRegister();
+            //autoItemRegister.Enabled = Settings.AutoItemRegister.Enabled;
+            //autoItemRegister.Filters = Settings.AutoItemRegister.Items;
 
-            autoItemBuy = new AutoItemBuy();
-            autoItemBuy.Enabled = Settings.AutoItemBuy.Enabled;
-            autoItemBuy.Filters = Settings.AutoItemBuy.Items;
+            //autoItemBuy = new AutoItemBuy();
+            //autoItemBuy.Enabled = Settings.AutoItemBuy.Enabled;
+            //autoItemBuy.Filters = Settings.AutoItemBuy.Items;
 
             speedHack = new SpeedHack();
             speedHack.GhillieMode = Settings.SpeedHack.GhillieMode;

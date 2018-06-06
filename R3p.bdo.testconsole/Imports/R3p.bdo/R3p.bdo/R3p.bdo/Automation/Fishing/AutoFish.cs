@@ -335,7 +335,7 @@ namespace R3p.bdo
 
         private bool canLoot()
         {
-            return Collection.Loot.Base.Loot.PanelLooting.isVisible() && Collection.Loot.Base.Loot.LootItems.Count != 0;
+            return /*Collection.Loot.Base.Loot.PanelLooting.isVisible() &&*/ Collection.Loot.Base.Loot.LootItems.Count != 0;
         }
 
         private int getFreeSlots()

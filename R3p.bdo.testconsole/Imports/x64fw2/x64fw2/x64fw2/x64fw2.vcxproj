@@ -119,8 +119,14 @@
     <ClCompile Include="ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Models\Actor\ActorData.cpp" />
+    <ClCompile Include="Models\Actor\ActorList.cpp" />
+    <ClCompile Include="Models\Container\LinkedList.cpp" />
+    <ClCompile Include="Models\Container\LinkedListEntry.cpp" />
     <ClCompile Include="Threading\ThreadContext.cpp" />
+    <ClCompile Include="Threads\Observers.h" />
     <ClCompile Include="Types\Vector3.cpp" />
+    <ClCompile Include="Utilities\MemoryObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Addresses.h" />
@@ -265,6 +271,10 @@
     <ClInclude Include="ImGui\stb_textedit.h" />
     <ClInclude Include="ImGui\stb_truetype.h" />
     <ClInclude Include="MinHook\MinHook.h" />
+    <ClInclude Include="Models\Actor\ActorData.h" />
+    <ClInclude Include="Models\Actor\ActorList.h" />
+    <ClInclude Include="Models\Container\LinkedList.h" />
+    <ClInclude Include="Models\Container\LinkedListEntry.h" />
     <ClInclude Include="rapidjson\allocators.h" />
     <ClInclude Include="rapidjson\cursorstreamwrapper.h" />
     <ClInclude Include="rapidjson\document.h" />
@@ -308,6 +318,7 @@
     <ClInclude Include="Types\Vector3.h" />
     <ClInclude Include="Utilities\FileReader.h" />
     <ClInclude Include="Utilities\JSON.h" />
+    <ClInclude Include="Utilities\MemoryObject.h" />
     <ClInclude Include="Utilities\WindowHandle.h" />
   </ItemGroup>
   <ItemGroup>

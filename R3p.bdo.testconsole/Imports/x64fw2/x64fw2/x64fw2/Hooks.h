@@ -247,35 +247,35 @@ bool Load()
 		return false;
 	}
 
-	/*if (MH_CreateHook(&GetMessageA, mGetMessageA, reinterpret_cast<LPVOID*>(&fpGetMessageA)) != MH_OK)
-	{
-		return false;
-	}
+	//if (MH_CreateHook(&GetMessageA, mGetMessageA, reinterpret_cast<LPVOID*>(&fpGetMessageA)) != MH_OK)
+	//{
+	//	return false;
+	//}
 
-	if (MH_CreateHook(&GetMessageW, mGetMessageW, reinterpret_cast<LPVOID*>(&fpGetMessageW)) != MH_OK)
-	{
-		return false;
-	}
+	//if (MH_CreateHook(&GetMessageW, mGetMessageW, reinterpret_cast<LPVOID*>(&fpGetMessageW)) != MH_OK)
+	//{
+	//	return false;
+	//}
 
-	if (MH_CreateHook(&PeekMessageA, mPeekMessageA, reinterpret_cast<LPVOID*>(&fpPeekMessageA)) != MH_OK)
-	{
-		return false;
-	}
+	//if (MH_CreateHook(&PeekMessageA, mPeekMessageA, reinterpret_cast<LPVOID*>(&fpPeekMessageA)) != MH_OK)
+	//{
+	//	return false;
+	//}
 
-	if (MH_CreateHook(&PeekMessageW, mPeekMessageW, reinterpret_cast<LPVOID*>(&fpPeekMessageW)) != MH_OK)
-	{
-		return false;
-	}
+	//if (MH_CreateHook(&PeekMessageW, mPeekMessageW, reinterpret_cast<LPVOID*>(&fpPeekMessageW)) != MH_OK)
+	//{
+	//	return false;
+	//}
 
-	if (MH_CreateHook(&TranslateMessage, mTranslateMessage, reinterpret_cast<LPVOID*>(&fpTranslateMessage)) != MH_OK)
-	{
-		return false;
-	}
+	//if (MH_CreateHook(&TranslateMessage, mTranslateMessage, reinterpret_cast<LPVOID*>(&fpTranslateMessage)) != MH_OK)
+	//{
+	//	return false;
+	//}
 
-	if (MH_CreateHook(oPresent, mPresent, reinterpret_cast<LPVOID*>(&fpPresent)) != MH_OK)
-	{
-		return false;
-	}*/
+	//if (MH_CreateHook(oPresent, mPresent, reinterpret_cast<LPVOID*>(&fpPresent)) != MH_OK)
+	//{
+	//	return false;
+	//}
 
 	if (MH_CreateHook(olua_gettop, mlua_gettop, reinterpret_cast<LPVOID*>(&fplua_gettop)) != MH_OK)
 	{

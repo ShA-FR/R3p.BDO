@@ -6,21 +6,13 @@
 #include "Threading/ThreadContext.h"
 #include "Threading/Thread.h"
 #include "Hooks.h"
-#include "Utilities/JSON.h"
+#include "Threads/Observers.h"
 
 std::string eventName;
 HANDLE hMainThread;
 
-void Init()
-{
-	Document settings = LoadSettings("");
-	auto a = settings["Speedhack"]["Player"]["Mvmt"].GetInt();
-}
-
 void MainThread(HMODULE hModule)
-{
-	//Init();
-
+{	
 	auto suspendedThreads = Infinity::Utilities::Threading::ThreadContext::GetInstance().SuspendAllThreads();
 	 
 	Load();
@@ -171,7 +163,6 @@ void MainThread(HMODULE hModule)
 	}
 
 	FreeLibraryAndExitThread(hModule, 0);
-	ExitThread(0);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule,
@@ -183,7 +174,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	{
 	case DLL_PROCESS_ATTACH:
 		CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, hModule, 0, 0);
-		//CreateThread(0, 0, (LPTHREAD_START_ROUTINE)PacketProcessor, hModule, 0, 0);
+		//CreateThread(0, 0, (LPTHREAD_START_ROUTINE)wObservers, hModule, 0, 0);
 		break;
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:

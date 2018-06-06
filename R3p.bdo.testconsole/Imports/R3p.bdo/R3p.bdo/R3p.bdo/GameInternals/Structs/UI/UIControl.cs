@@ -255,10 +255,10 @@ namespace R3p.bdo.GameInternals.Structs.UI
         {
             if (_bName == null)
             {
-                _bName = ReadStringASCII(ReadPointer8b(0x0018));
+                _bName = ReadStringASCII(ReadPointer8b(0x0070));
 
                 if (_bName.Length == 0)
-                    _bName = ReadStringASCII(0x0018);
+                    _bName = ReadStringASCII(0x0070);
             }
 
             return _bName;
