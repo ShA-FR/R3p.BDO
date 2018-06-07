@@ -185,8 +185,8 @@ namespace R3p.bdo.testconsole
                 autoPot.Run();
                 //autoItemRegister.Run();
 
-                if (_autoItemBuyTrigger && !autoItemBuy.ItemMarket.isVisible())
-                    _autoItemBuyTrigger = false;
+                //if (_autoItemBuyTrigger && !autoItemBuy.ItemMarket.isVisible())
+                //    _autoItemBuyTrigger = false;
 
                 //autoItemBuy.Run(_autoItemBuyTrigger);
                 //autoItemBuy.PostStats();

@@ -30,22 +30,20 @@ namespace R3p.bdo
         public int[] itemIdFilter_Green { get; set; }
         public int[] itemIdFilter_Blue { get; set; }
         public int[] itemIdFilter_Yellow { get; set; }
-        
+
         public string[] familyNameWhiteList { get; set; }
 
         private EquipmentItem MainHand { get; set; }
         private bool noMoreRodsToSwitch { get; set; }
-        
+
         public AutoFish()
         {
             Instance = this;
 
-            PatchItemSwapCooldown();
-
             noMoreRodsToSwitch = false;
 
             MainHand = Collection.Actors.Local.PlayerData.GetEquipmentItem(EquipSlotNo.rightHand);
-            
+
             Collection.Fishing.Log.startTime = DateTime.Now;
             Collection.Fishing.Log._catches = 0;
             Collection.Fishing.Log._switches = 0;
@@ -61,7 +59,6 @@ namespace R3p.bdo
         private UIControl sinGaugePanel;
         private UIControl sinGaugeBar;
 
-        //private int failCount = 0;
         private bool otherPlayersAround = false;
 
         private bool _stopFishing = false;
@@ -75,24 +72,10 @@ namespace R3p.bdo
 
         public bool isFishing;
 
-        //public bool waitingForLoot = false;
-
-        private void PatchItemSwapCooldown()
-        {
-            //if (MemoryReader.ReadByte(Offsets._itemSwapCooldown) == 0x75)
-            //{
-            //    MemoryWriter.Write(Offsets._itemSwapCooldown, BitConverter.GetBytes((byte) 0xEB));
-            //    MemoryWriter.Write(Offsets._itemSwapCooldown + 1, BitConverter.GetBytes((byte)0x14));
-            //}
-        }
-
         public void Run(bool requestReload)
         {
             if (requestReload)
                 _stopFishing = true;
-
-            //if (_stopFishing)
-            //    return;
 
             if (Enabled)
             {
@@ -103,11 +86,6 @@ namespace R3p.bdo
 
                 if (!isFishingRodEquipped())
                 {
-                    //_totalMaxPos = null;
-                    //_totalMinPos = null;
-                    //_totalMaxRotation = 0;
-                    //_totalMinRotation = 0;
-
                     isFishing = false;
 
                     if (SpeedHack.Instance.hackedAnimation)
@@ -137,10 +115,10 @@ namespace R3p.bdo
                                 1.0f))
                         Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.SetAnimationSpeed(1.0f);
                 }
-                
+
                 if (isFishingRodEquipped() && getFishingRodDurability() == 0 && !_stopFishing)
                 {
-                    Log.Post("Rod Durability = 0, Switching Rod",LogModule.AutoFish);
+                    Log.Post("Rod Durability = 0, Switching Rod", LogModule.AutoFish);
                     SwitchRod();
                 }
 
@@ -170,26 +148,21 @@ namespace R3p.bdo
                 }
 
                 DeleteNonRepairableRods();
-                //getPositonData();
                 checkSafety();
 
                 if (!_stopFishing)
                 {
-                    //if(!waitingForLoot)
                     ThrowRod();
 
                     Catch();
-                    
+
                     Loot();
                 }
             }
         }
-        
+
         private void checkSafety()
         {
-            //if (!otherPlayersAround)
-            //    return;
-
             if (Collection.Actors.Local.PlayerData.PercentageCurHitpoints < 90)
             {
                 Console.Clear();
@@ -222,13 +195,6 @@ namespace R3p.bdo
                 _stopFishing = true;
                 return;
             }
-
-            //if (isOrdinaryMovement())
-            //{
-            //    Log.Post("Ordinary Movement Detected, Stopped Fishing", LogModule.AutoFish);
-            //    _stopFishing = true;
-            //}
-
         }
 
         private bool isTeleporting()
@@ -264,34 +230,11 @@ namespace R3p.bdo
         {
             if (_totalMinPos == null)
             {
-                _totalMinPos = new float[]{ Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[0]) * 0.80f, Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[1]) * 0.80f, Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[2]) * 0.80f};
+                _totalMinPos = new float[] { Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[0]) * 0.80f, Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[1]) * 0.80f, Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[2]) * 0.80f };
                 _totalMaxPos = new float[] { Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[0]) * 1.20f, Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[1]) * 1.20f, Math.Abs(Collection.Actors.Local.PlayerData.WorldPosition[2]) * 1.20f };
                 _totalMinRotation = Math.Abs(Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.Rotation) * 0.80f;
                 _totalMaxRotation = Math.Abs(Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.Rotation) * 1.20f;
             }
-
-            //if (otherPlayersAround)
-            //    return;
-
-            //if (Collection.Actors.Local.PlayerData.WorldPosition[0] > _totalMaxPos[0])
-            //    _totalMaxPos[0] = Collection.Actors.Local.PlayerData.WorldPosition[0];
-            //if (Collection.Actors.Local.PlayerData.WorldPosition[0] < _totalMinPos[0])
-            //    _totalMinPos[0] = Collection.Actors.Local.PlayerData.WorldPosition[0];
-
-            //if (Collection.Actors.Local.PlayerData.WorldPosition[1] > _totalMaxPos[1])
-            //    _totalMaxPos[1] = Collection.Actors.Local.PlayerData.WorldPosition[1];
-            //if (Collection.Actors.Local.PlayerData.WorldPosition[1] < _totalMinPos[1])
-            //    _totalMinPos[1] = Collection.Actors.Local.PlayerData.WorldPosition[1];
-
-            //if (Collection.Actors.Local.PlayerData.WorldPosition[2] > _totalMaxPos[2])
-            //    _totalMaxPos[2] = Collection.Actors.Local.PlayerData.WorldPosition[2];
-            //if (Collection.Actors.Local.PlayerData.WorldPosition[2] < _totalMinPos[2])
-            //    _totalMinPos[2] = Collection.Actors.Local.PlayerData.WorldPosition[2];
-
-            //if (Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.Rotation > _totalMaxRotation)
-            //    _totalMaxRotation = Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.Rotation;
-            //if (Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.Rotation < _totalMinRotation)
-            //    _totalMinRotation = Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.Rotation;
         }
 
         private bool isNextFishDesiredGrade()
@@ -335,7 +278,7 @@ namespace R3p.bdo
 
         private bool canLoot()
         {
-            return /*Collection.Loot.Base.Loot.PanelLooting.isVisible() &&*/ Collection.Loot.Base.Loot.LootItems.Count != 0;
+            return Collection.Loot.Base.Loot.PanelLooting.isVisible() && Collection.Loot.Base.Loot.LootItems.Count != 0;
         }
 
         private int getFreeSlots()
@@ -392,19 +335,15 @@ namespace R3p.bdo
         {
             if (Animation_Fishing_Idle())
             {
-                //Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.SetAnimationSpeed(1.0f);
-
                 while (Collection.Actors.Local.PlayerData.NextFishBite != 0)
                 {
                     Collection.Actors.Local.PlayerData.Write(ActorData.Offsets.ONextFishBite,
-                        BitConverter.GetBytes((long) 0));
+                        BitConverter.GetBytes((long)0));
 
                     Thread.Sleep(1);
                 }
 
                 DateTime start = DateTime.Now;
-
-                //Log.Post("Throwing Rod", LogModule.AutoFish);
 
                 while (Animation_Fishing_Idle())
                 {
@@ -424,17 +363,13 @@ namespace R3p.bdo
 
                     Thread.Sleep(1);
                 }
-                
+
                 LogFishData(DateTime.Now + "\t" + "Throw\t" + String.Join("\t", Collection.Actors.Local.PlayerData.WorldPosition) + "\t" + getNextFishGrade() + "\t" + newTime + "sec" + "\t" + GetFishingResources().ToString("0.0") + "%");
 
                 Collection.Fishing.Log.CatchTimes.Add(TimeSpan.FromSeconds(newTime));
                 Collection.Fishing.Log.FishGrades.Add(getNextFishGrade());
                 Collection.Fishing.Log._throws++;
                 Collection.Fishing.Log.updated = true;
-
-                //Console.WriteLine("Initiated Throw");
-
-                //Thread.Sleep(2000);
             }
         }
 
@@ -452,9 +387,9 @@ namespace R3p.bdo
 
                     var nextafkcatch = Collection.Actors.Local.PlayerData.NextAutoFishAutoCatch;
                     var nextbite = Collection.Actors.Local.PlayerData.NextFishBite;
-                    var dif = (nextafkcatch - nextbite)/1000;
+                    var dif = (nextafkcatch - nextbite) / 1000;
 
-                    nextRandomCatch = rng.Next((int)(dif*0.8),(int)(dif*0.95)) * 1000;
+                    nextRandomCatch = rng.Next((int)(dif * 0.8), (int)(dif * 0.95)) * 1000;
 
                     newRandomCatch = true;
                 }
@@ -464,31 +399,12 @@ namespace R3p.bdo
 
                 Log.Post("Catching Fish", LogModule.AutoFish);
 
-                //Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.SetAnimationSpeed(1.0f);
-
                 Collection.Base.Events.InputEventListener.ChangeKeyState_PressOnce(VirtualKeyCode.KeyCode_SPACE);
-
-                //DateTime start = DateTime.Now;
-
-                //while (!Collection.Loot.Base.Loot.PanelLooting.isVisible())
-                //{
-                //    if (start.AddSeconds(3) <= DateTime.Now)
-                //        break;
-
-                //    Thread.Sleep(1);
-                //}
-
-                //Collection.Actors.Local.PlayerData.CharacterControl.CharacterScene.SetAnimationSpeed(5.0f);
 
                 Collection.Fishing.Log._catches++;
 
                 looted = false;
-                //waitingForLoot = true;
                 newRandomCatch = false;
-
-                //failCount = 0;
-
-               // Console.WriteLine("Initiated Catch\t" + getNextFishGrade());
             }
         }
 
@@ -518,11 +434,10 @@ namespace R3p.bdo
                 Collection.Actors.Local.PlayerData.Inventory.Items.Where(
                     x => x.isFishingRod() && x.x0018_CurrentDurability > 0);
 
-            _durabilityLeft = rods.Sum(x => (int) x.x0018_CurrentDurability) + MainHand.Durability;
+            _durabilityLeft = rods.Sum(x => (int)x.x0018_CurrentDurability) + MainHand.Durability;
 
             if (rods.Count() == 0)
             {
-                //noMoreRodsToSwitch = true;
                 return;
             }
 
@@ -531,33 +446,25 @@ namespace R3p.bdo
             if (rod == null)
                 return;
 
-            //if (lastUse.AddMilliseconds(700) <= DateTime.Now)
-            //{
-                long lastMainHandId = GetCurrentMainHandId();
+            long lastMainHandId = GetCurrentMainHandId();
 
-                rod.UseItem(0);
+            rod.UseItem(0);
 
-                DateTime start = DateTime.Now;
+            DateTime start = DateTime.Now;
 
-                while (GetCurrentMainHandId() == lastMainHandId)
-                {
-                    if (start.AddSeconds(1) <= DateTime.Now)
-                        break;
+            while (GetCurrentMainHandId() == lastMainHandId)
+            {
+                if (start.AddSeconds(1) <= DateTime.Now)
+                    break;
 
-                    Thread.Sleep(10);
-                }
+                Thread.Sleep(10);
+            }
 
-                Collection.Actors.Local.PlayerData.Write(ActorData.Offsets.OIsFishing, BitConverter.GetBytes((byte) 0));
+            Collection.Actors.Local.PlayerData.Write(ActorData.Offsets.OIsFishing, BitConverter.GetBytes((byte)0));
 
-                lastUse = DateTime.Now;
+            lastUse = DateTime.Now;
 
-                Collection.Fishing.Log._switches++;
-                
-                //Log.Post("Switched Rod", LogModule.AutoFish);
-
-                //Console.WriteLine("Switched Rod\t" + getNextFishGrade());
-            //}
-
+            Collection.Fishing.Log._switches++;
         }
 
         private bool looted = false;
@@ -570,7 +477,7 @@ namespace R3p.bdo
                 {
                     LogFishData(DateTime.Now + "\t" + "Item\t" + String.Join("\t", Collection.Actors.Local.PlayerData.WorldPosition) + "\t" + item.ItemData.ItemIndex + "\t" + item.ItemData.Name);
 
-                    if (catchGrade.Contains((ItemGrade) item.ItemData.GradeType))
+                    if (catchGrade.Contains((ItemGrade)item.ItemData.GradeType))
                         if (shouldLoot(item))
                         {
                             addLootLog(item);
@@ -578,14 +485,11 @@ namespace R3p.bdo
                             item.Pickup();
 
                             Log.Post("Looted ItemId(" + item.ItemData.ItemIndex + ")", LogModule.AutoFish);
-
-                            //Console.WriteLine("Looted");
                         }
 
                 }
 
                 looted = true;
-                //waitingForLoot = false;
 
                 Thread.Sleep(500);
             }
@@ -596,11 +500,11 @@ namespace R3p.bdo
             switch (item.ItemData.GradeType)
             {
                 case 0:
-                    if (!Collection.Fishing.Log.looted_White.ContainsKey((int) item.ItemData.ItemIndex))
-                        Collection.Fishing.Log.looted_White.Add((int) item.ItemData.ItemIndex, 1);
+                    if (!Collection.Fishing.Log.looted_White.ContainsKey((int)item.ItemData.ItemIndex))
+                        Collection.Fishing.Log.looted_White.Add((int)item.ItemData.ItemIndex, 1);
                     else
                     {
-                        Collection.Fishing.Log.looted_White[(int) item.ItemData.ItemIndex] += 1;
+                        Collection.Fishing.Log.looted_White[(int)item.ItemData.ItemIndex] += 1;
                     }
 
                     Collection.Fishing.Log.updated = true;
@@ -648,8 +552,8 @@ namespace R3p.bdo
                     return true;
                 else
                 {
-                    
-                    return itemIdFilter_White.Contains((int) item.ItemData.ItemIndex);
+
+                    return itemIdFilter_White.Contains((int)item.ItemData.ItemIndex);
                 }
 
             if (item.ItemData.GradeType == 1)
@@ -684,7 +588,7 @@ namespace R3p.bdo
             if (!FishDataLog)
                 return;
 
-           File.AppendAllText(@".\fishdata.txt", text + "\n");
+            File.AppendAllText(@".\fishdata.txt", text + "\n");
         }
 
         public void PostStats()
@@ -692,14 +596,14 @@ namespace R3p.bdo
             if (!isFishing)
                 return;
 
-                var newTime = (getNextBite_Ticks()/1000);
+            var newTime = (getNextBite_Ticks() / 1000);
 
             string timeString = newTime.ToString();
             if (newTime < 0)
                 timeString = "--";
 
-            Console.Title = "R3p.bdo.autoFish - - Next Catch in " + newTime + "sec - - Resources " + GetFishingResources().ToString("0.0") + "%";//Next Fishgrad " + getNextFishGrade();// + " - - FailCount " + failCount;
-           
+            Console.Title = "R3p.bdo.autoFish - - Next Catch in " + newTime + "sec - - Resources " + GetFishingResources().ToString("0.0") + "%";
+
             if (Collection.Fishing.Log.updated)
             {
                 if (Collection.Fishing.Log.CatchTimes.Count == 0)
@@ -720,7 +624,7 @@ namespace R3p.bdo
                 Console.WriteLine("Catches: {0}\tAvgCatch: {1}sec", Collection.Fishing.Log._catches, Collection.Fishing.Log.CatchTimes.Average(x => x.TotalSeconds).ToString("0"));
                 Console.WriteLine("Switches: {0}\tMaxCatch: {1}sec\n", Collection.Fishing.Log._switches, Collection.Fishing.Log.CatchTimes.Max(x => x.TotalSeconds).ToString("0"));
 
-                Console.WriteLine("White {0}({1}%)", totalWhite, ((totalWhite/totalGrades)*100).ToString("0.0"));
+                Console.WriteLine("White {0}({1}%)", totalWhite, ((totalWhite / totalGrades) * 100).ToString("0.0"));
                 Console.WriteLine("Green {0}({1}%)", totalGreen, ((totalGreen / totalGrades) * 100).ToString("0.0"));
                 Console.WriteLine("Blue {0}({1}%)", totalBlue, ((totalBlue / totalGrades) * 100).ToString("0.0"));
                 Console.WriteLine("Yellow {0}({1}%)\n", totalYellow, ((totalYellow / totalGrades) * 100).ToString("0.0"));
@@ -733,7 +637,7 @@ namespace R3p.bdo
                     foreach (var item in Collection.Fishing.Log.looted_White)
                     {
                         Console.WriteLine("{0}\t{1}\t{2}\t{3}", "White", item.Key, item.Value,
-                            (item.Value/duration.TotalHours).ToString("0.0"));
+                            (item.Value / duration.TotalHours).ToString("0.0"));
                     }
 
                     Console.WriteLine("\n");
@@ -745,7 +649,7 @@ namespace R3p.bdo
                     foreach (var item in Collection.Fishing.Log.looted_Green)
                     {
                         Console.WriteLine("{0}\t{1}\t{2}\t{3}", "Green", item.Key, item.Value,
-                            (item.Value/duration.TotalHours).ToString("0.0"));
+                            (item.Value / duration.TotalHours).ToString("0.0"));
                     }
 
                     Console.WriteLine("\n");
@@ -757,7 +661,7 @@ namespace R3p.bdo
                     foreach (var item in Collection.Fishing.Log.looted_Blue)
                     {
                         Console.WriteLine("{0}\t{1}\t{2}\t{3}", "Blue", item.Key, item.Value,
-                            (item.Value/duration.TotalHours).ToString("0.0"));
+                            (item.Value / duration.TotalHours).ToString("0.0"));
                     }
 
                     Console.WriteLine("\n");
@@ -769,7 +673,7 @@ namespace R3p.bdo
                     foreach (var item in Collection.Fishing.Log.looted_Yellow)
                     {
                         Console.WriteLine("{0}\t{1}\t{2}\t{3}", "Yellow", item.Key, item.Value,
-                            (item.Value/duration.TotalHours).ToString("0.0"));
+                            (item.Value / duration.TotalHours).ToString("0.0"));
                     }
 
                     Console.WriteLine("\n");
@@ -778,6 +682,6 @@ namespace R3p.bdo
                 Collection.Fishing.Log.updated = false;
             }
         }
-        
+
     }
 }

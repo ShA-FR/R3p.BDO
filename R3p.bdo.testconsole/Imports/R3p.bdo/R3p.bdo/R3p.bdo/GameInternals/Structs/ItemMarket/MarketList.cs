@@ -14,14 +14,14 @@ namespace R3p.bdo.GameInternals.Structs.ItemMarket
             Address = Offsets._marketBase;
         }
 
-        private int x0000_ListCount => ReadInt32(0x50);
-        private long x0008_ItemListStart => ReadPointer8b(0x58);
-        private long x0010_ItemListEnd => ReadPointer8b(0x60);
+        //private int x0000_ListCount => ReadInt32(0x50);
+        private long x0008_ItemListStart => ReadPointer8b(0x00);
+        private long x0010_ItemListEnd => ReadPointer8b(0x08);
 
-        private long RegistredItemList_Start => ReadPointer8b(0xA0);
-        private long RegistredItemList_End => ReadPointer8b(0xA8);
+        private long RegistredItemList_Start => ReadPointer8b(0x48);
+        private long RegistredItemList_End => ReadPointer8b(0x50);
 
-        public int RegistredItemCount => (int)(RegistredItemList_End - RegistredItemList_Start)/0xD0;
+        public int RegistredItemCount => (int)(RegistredItemList_End - RegistredItemList_Start)/0xD8;
 
         public Dictionary<int, List<MarketItemData>> List => GetItemList();
 
@@ -36,29 +36,20 @@ namespace R3p.bdo.GameInternals.Structs.ItemMarket
             var start = x0008_ItemListStart;
             var end = x0010_ItemListEnd;
             int maxSize = (int)(end - start) / 0x08;
-
-            MarketItemData firstNode = new MarketItemData(ReadPointer8b(0x48));
-
-            MarketItemData curNode = firstNode;
-
-            for (int i = 0; i < maxSize; i++)
+            
+            for (int i = 0; i < maxSize; i+= 8)
             {
-                MarketItemData nextNode = curNode.x0008_NextItem;
+                MarketItemData curNode = new MarketItemData(ReadInt64(start + i));
 
-                if (nextNode.x0000_PreviousItem.Address == curNode.Address && nextNode.Address != firstNode.Address)
+                int itemId = (int)curNode.ItemData.ItemIndex;
+
+                if (!itemList.ContainsKey(itemId))
                 {
-                    if (!itemList.ContainsKey(curNode.x0010_ItemId))
-                        itemList.Add(curNode.x0010_ItemId, new List<MarketItemData>() { curNode });
-                    else
-                    {
-                        itemList[curNode.x0010_ItemId].Add(curNode);
-                    }
-
-                    curNode = nextNode;
+                    itemList.Add(itemId, new List<MarketItemData>() {curNode});
                 }
                 else
                 {
-                    break;
+                    itemList[itemId].Add(curNode);
                 }
             }
 

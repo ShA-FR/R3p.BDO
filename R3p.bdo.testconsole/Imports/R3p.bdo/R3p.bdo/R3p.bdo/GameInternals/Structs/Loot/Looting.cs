@@ -28,11 +28,11 @@ namespace R3p.bdo.GameInternals.Structs.Loot
 
         private List<LootItem> GetList()
         {
-            //if (!PanelLooting.isVisible())
-            //{
-            //    Count = 0;
-            //    return new List<LootItem>();
-            //}
+            if (!PanelLooting.isVisible())
+            {
+                Count = 0;
+                return new List<LootItem>();
+            }
 
             Count = (int) ((LootList_End - LootList_Start)/0x88);
 

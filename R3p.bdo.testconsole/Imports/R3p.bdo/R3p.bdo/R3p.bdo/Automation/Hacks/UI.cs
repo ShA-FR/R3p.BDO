@@ -32,7 +32,7 @@ namespace R3p.bdo.Automation.Hacks
             if (!Enabled)
                 return;
 
-            hackButtonInteraction();
+            //hackButtonInteraction();
             //enableGetAllButton();
             TransformGuildQuests();
         }
@@ -68,22 +68,11 @@ namespace R3p.bdo.Automation.Hacks
 
             if (!Frame_GuildQuests.isVisible())
                 return;
-
-            //bool isFixed = false;
-
+            
             foreach (var quest in Collection.Quests.Base.GuildQuests.List)
             {
                 quest.GuildQuestData.FixDescription();
-
-                //if (b && !isFixed)
-                //    isFixed = true;
             }
-
-            //if (isFixed)
-            //{
-            //    Pipe.Call.DoString("GuildQuestInfoPage:UpdateData()");
-            //    Thread.Sleep(250);
-            //}
         }
     }
 }
