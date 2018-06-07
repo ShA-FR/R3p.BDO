@@ -127,21 +127,21 @@ namespace R3p.bdo.testconsole
                     conn.Host = FtpCredendtials.FTPHost;
                     conn.Credentials = FtpCredendtials.FtpCredential;
                     conn.Connect();
+
+                    if (!conn.DirectoryExists("/Log/" + Engine._supportedVersion))
+                        conn.CreateDirectory("/Log/" + Engine._supportedVersion);
+
+                    string fileName = Collection.Actors.Local.PlayerData.FamilyName.GetHashCode().ToString() + ".log";
+
+                    if (!conn.FileExists("/Log/" + fileName))
+                    {
+                        if (!File.Exists(@"./" + fileName))
+                            File.Create(@"./" + fileName).Close();
+
+                        conn.UploadFile(@"./" + fileName, "/Log/" + Engine._supportedVersion + "/" + fileName);
+                    }
                 }
-                catch (Exception err){ err.ToString(); } // FTP connection fails
-
-                if (!conn.DirectoryExists("/Log/" + Engine._supportedVersion))
-                    conn.CreateDirectory("/Log/" + Engine._supportedVersion);
-
-                string fileName = Collection.Actors.Local.PlayerData.FamilyName.GetHashCode().ToString() + ".log";
-
-                if (!conn.FileExists("/Log/" + fileName))
-                {
-                    if (!File.Exists(@"./" + fileName))
-                        File.Create(@"./" + fileName).Close();
-
-                    conn.UploadFile(@"./" + fileName, "/Log/" + Engine._supportedVersion + "/" + fileName);
-                }
+                catch (Exception err) { err.ToString(); } // FTP connection fails
             }
         }
 
@@ -249,11 +249,11 @@ namespace R3p.bdo.testconsole
         private static void LoadSettings()
         {
             if (!File.Exists(Files.fileSettings))
-                Xml.Writer.SaveSettings();
+                Xml.SaveSettings();
 
             Console.WriteLine("Loading Settings from settings.xml");
 
-            Xml.Reader.LoadSettings();
+            Xml.LoadSettings();
 
             Settings.HotKeys.Transform();
             Settings.AutoFish.Transform();
@@ -361,7 +361,7 @@ namespace R3p.bdo.testconsole
         private static void CreateWaypoint()
         {
             Settings.Overlay.Waypoints.Add(new WaypointObject(true, new int[] { 255, 255, 255, 255 }, 1, Collection.Actors.Local.PlayerData.WorldPosition, "Waypoint_" + Settings.Overlay.Waypoints.Count));
-            Xml.Writer.SaveSettings();
+            Xml.SaveSettings();
         }
 
         private static void GetHotKeys()
@@ -487,11 +487,11 @@ namespace R3p.bdo.testconsole
             if (!File.Exists(Files.fileSystemVariables))
             {
                 Console.WriteLine("Dumping SystemVariables to systemvariables.xml");
-                Xml.Writer.DumpSystemVariables();
+                Xml.DumpSystemVariables();
             }
 
             Console.WriteLine("Loading SystemVariables from systemvariables.xml");
-            Xml.Reader.LoadSystemVariables();
+            Xml.LoadSystemVariables();
         }
 
         private static void InitModules()
