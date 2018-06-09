@@ -159,8 +159,8 @@ namespace R3p.bdo.settings
                 attrNames.Add("ShowOnWorldMap", BoolToIntToString(itemEntry.ShowOnWorldMap));
                 attrNames.Add("ShowLevel", BoolToIntToString(itemEntry.ShowLevel));
                 attrNames.Add("ShowHp", BoolToIntToString(itemEntry.ShowHp));
-                attrNames.Add("MinDistance", BoolToIntToString(itemEntry.ShowHp));
-                attrNames.Add("MaxDistance", BoolToIntToString(itemEntry.ShowHp));
+                attrNames.Add("MinDistance", itemEntry.MinDistance.ToString());
+                attrNames.Add("MaxDistance", itemEntry.MaxDistance.ToString());
                 XmlCreateKey("Actor", nodeOverlayActors, attrNames);
             }
             XmlNode nodeOverlayWaypoints = XmlCreateKey("Waypoints", nodeOverlay);

@@ -17,7 +17,7 @@ namespace R3p.bdo
         public const long _regionInfoManager = 0x1421893D0; //
         public const long _workerList = 0x142071DD0;    //
         public const long _marketBase = 0x142072670;    //
-        public const long _vMatrix = 0x142A91020;   //
+        public const long _vMatrix = 0x142AF7A00;   //
         public const long _base = 0x14202C520;  //
         public const long _currentWarehouse = 0x142AEDAE8;  //
         public const long _currentVehicle = 0x142AEF068;    //
