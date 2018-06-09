@@ -16,7 +16,8 @@ namespace R3p.bdo
         public const long _mainWindowBase = 0x142081D50;    //
         public const long _regionInfoManager = 0x1421893D0; //
         public const long _workerList = 0x142071DD0;    //
-        public const long _marketBase = 0x0000000142072670;    //
+        public const long _marketBase = 0x142072670;    //
+        public const long _vMatrix = 0x142A91020;   //
         public const long _base = 0x14202C520;  //
         public const long _currentWarehouse = 0x142AEDAE8;  //
         public const long _currentVehicle = 0x142AEF068;    //
@@ -33,6 +34,6 @@ namespace R3p.bdo
         public const long _getKeyInputState_Pressed = 0x1411096B0;  //
         public const long _cryptoRabbit = 0x140A11D20;  //
         public const long _checkWindowFocus = 0x1401B7C90;  //
-        public const long _stringTable = 0x14202D588;	//0x14202D558				
+        public const long _stringTable = 0x14202D588;	//0x14202D558					
     }
 }
