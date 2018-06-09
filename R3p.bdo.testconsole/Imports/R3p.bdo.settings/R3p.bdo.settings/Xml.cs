@@ -51,7 +51,7 @@ namespace R3p.bdo.settings
         {
             if (value == null)
             {
-                throw new ArgumentNullException(value);
+                throw new ArgumentNullException(String.Format("This argument must'n be null {0}", value));
             }
             return false;
         }
@@ -68,26 +68,30 @@ namespace R3p.bdo.settings
         {
             XmlNode element = null;
 
-            ThrowIfNull(keyName);
+            // ThrowIfNull(keyName);
+            // create element
             if (comment)
             {
                 element = XmlDoc.CreateComment(keyName);
             }
-            // create element
-            if (parentNode == null)
+            else
             {
                 element = XmlDoc.CreateElement(keyName);
             }
-            else
+            // create attributes for element
+            if (attributes != null)
+            {
+                foreach (var attr in attributes)
+                {
+                    XmlAttribute attribute = XmlDoc.CreateAttribute(attr.Key);
+                    attribute.Value = attr.Value;
+                    element.Attributes.Append(attribute);
+                }
+            }
+            // add if parent
+            if (parentNode != null)
             {
                 parentNode.AppendChild(element);
-            }
-            // create attributes for element
-            foreach (var attr in attributes)
-            {
-                XmlAttribute attribute = XmlDoc.CreateAttribute(attr.Key);
-                attribute.Value = attr.Value;
-                element.Attributes.Append(attribute);
             }
             return element;
         }
@@ -96,13 +100,14 @@ namespace R3p.bdo.settings
         /// Save settings to XML file
         /// </summary>
         /// <returns>if save process was success or not</returns>
-        public static bool SaveSettings(string fileName = "Settings")
+        public static bool SaveSettings(string rootNodeName = "Settings")
         {
-            ThrowIfNull(fileName);
+            ThrowIfNull(rootNodeName);
             // minimal objects to fill up new settings.xml file
             XmlDoc = new XmlDocument();
-            XmlRoot = XmlDoc.CreateElement(fileName);
-            XmlCreateKey(String.Join("\t", Enum.GetNames(typeof(VirtualKeyCode))), parentNode:XmlRoot, comment:true);
+            XmlRoot = XmlDoc.CreateElement(rootNodeName);
+            XmlDoc.AppendChild(XmlRoot);
+            XmlCreateKey(String.Join("\t", Enum.GetNames(typeof(VirtualKeyCode))), parentNode: XmlRoot, comment: true);
             XmlCreateKey("HotKeys", XmlRoot, Settings.HotKeys.List);
             XmlCreateKey("AutoFish", XmlRoot, Settings.AutoFish.List);
             XmlCreateKey("AutoRestore", XmlRoot, Settings.AutoRestore.List);
