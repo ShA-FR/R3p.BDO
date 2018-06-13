@@ -40,7 +40,7 @@ namespace R3p.bdo
             public static int OActiveBuffCount = 0x168;//-
             public static int OActiveBuffList = 0x170;//-
             public static int OIsDead = 0x198;//-
-            public static int OWorldPositionCollectables = 0x360;//-
+            public static int OWorldPositionCollectables = 0x368;//-
             public static int OCharacterController = 0x380;//-
             public static int OLootIdentifier = 0x3C8;//-
             public static int OIsCombatStance = 0x3EC;//-
